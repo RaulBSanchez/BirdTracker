@@ -2,7 +2,7 @@ import requests
 import json
 from dotenv import load_dotenv, dotenv_values 
 import os
-
+import pandas as pd
 import datetime
 from time import sleep
 load_dotenv()
@@ -25,6 +25,10 @@ headers = {
 # Send GET request to fetch hotspots
 #response = requests.get(url, headers=headers)
 
+bird_count = {
+    
+}
+
 current_date = START_DATE
 # url = "https://api.ebird.org/v2/data/obs/{{regionCode}}/historic/{{y}}/{{m}}/{{d}}"
 
@@ -37,15 +41,25 @@ for i in range((END_DATE - START_DATE).days + 1):
         # Get the raw response text
         response_text = response.text
         data = json.loads(response_text)
-        #print(type(data))
+        print(type(data))
     
         for x in data:
+            # print(x["comName"])
+            # print(x["howMany"])
 
-            print("common name:",  x["comName"])
-            print("Count:", x["howMany"])
+            #if bird doesnt exist, create a key 
+
+            # if x["comName"] not in bird_count.keys():
+            #     bird_count[x["comName"]] = x.get("howMany", 0)
+        
+
+            # else: 
+            #     bird_count[x["comName"]] += x.get("howMany", 0)
+            print(x)
+
+
             
     else:
         print("no good")
     #current_date += datetime.timedelta(days=1)
-
 
