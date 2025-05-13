@@ -7,8 +7,8 @@ import datetime
 from time import sleep
 load_dotenv()
 
-START_DATE = datetime.date(2025, 4, 23)
-END_DATE = datetime.date(2025, 4, 26)
+START_DATE = datetime.date(2025, 4, 15)
+END_DATE = datetime.date(2025, 4, 17)
 
 
 
@@ -31,6 +31,8 @@ bird_count = {
 
 current_date = START_DATE
 # url = "https://api.ebird.org/v2/data/obs/{{regionCode}}/historic/{{y}}/{{m}}/{{d}}"
+df = pd.DataFrame()
+
 
 for i in range((END_DATE - START_DATE).days + 1):
     current_date = START_DATE + datetime.timedelta(days=i)
@@ -41,25 +43,25 @@ for i in range((END_DATE - START_DATE).days + 1):
         # Get the raw response text
         response_text = response.text
         data = json.loads(response_text)
-        print(type(data))
-    
-        for x in data:
-            # print(x["comName"])
-            # print(x["howMany"])
-
-            #if bird doesnt exist, create a key 
-
-            # if x["comName"] not in bird_count.keys():
-            #     bird_count[x["comName"]] = x.get("howMany", 0)
-        
-
-            # else: 
-            #     bird_count[x["comName"]] += x.get("howMany", 0)
-            print(x)
+        #print(data)
+        if data:
+            day_df = pd.DataFrame(data)
+            df = pd.concat([df, day_df], ignore_index=True)
+        else:
+            print(" no data for this date")
+    else:
+        print("better luck next time")
+ 
 
 
             
-    else:
-        print("no good")
+   
     #current_date += datetime.timedelta(days=1)
 
+#df.to_csv('your_file_name2.csv', index=False)
+
+if not df.empty and 'obsDt' in df.columns:
+    df['obsDt'] = pd.to_datetime(df['obsDt'])
+
+df.to_csv('ebird_dixon_observations.csv', index=False)
+print("Data saved to ebird_dixon_observations.csv")
