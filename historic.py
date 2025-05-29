@@ -6,9 +6,10 @@ import pandas as pd
 import datetime
 from time import sleep
 load_dotenv()
+import time
 
-START_DATE = datetime.date(2025, 4, 15)
-END_DATE = datetime.date(2025, 4, 17)
+START_DATE = datetime.date(2025, 4, 1)
+END_DATE = datetime.date(2025, 4, 30)
 
 
 
@@ -25,9 +26,7 @@ headers = {
 # Send GET request to fetch hotspots
 #response = requests.get(url, headers=headers)
 
-bird_count = {
-    
-}
+bird_count = {}
 
 current_date = START_DATE
 # url = "https://api.ebird.org/v2/data/obs/{{regionCode}}/historic/{{y}}/{{m}}/{{d}}"
@@ -36,7 +35,7 @@ df = pd.DataFrame()
 
 for i in range((END_DATE - START_DATE).days + 1):
     current_date = START_DATE + datetime.timedelta(days=i)
-    print(current_date)
+    #print(current_date)
     url = f'https://api.ebird.org/v2/data/obs/L3041917/historic/{current_date.year}/{current_date.month}/{current_date.day}'
     response = requests.get(url, headers=headers)
     if response.status_code == 200:
@@ -51,7 +50,8 @@ for i in range((END_DATE - START_DATE).days + 1):
             print(" no data for this date")
     else:
         print("better luck next time")
- 
+    
+    time.sleep(1)
 
 
             
@@ -61,7 +61,7 @@ for i in range((END_DATE - START_DATE).days + 1):
 #df.to_csv('your_file_name2.csv', index=False)
 
 if not df.empty and 'obsDt' in df.columns:
-    df['obsDt'] = pd.to_datetime(df['obsDt'])
+    df['obsDt'] = pd.to_datetime(df['obsDt'], errors='coerce')
 
-df.to_csv('ebird_dixon_observations.csv', index=False)
+df.to_csv('my_debugging2.csv', index=False)
 print("Data saved to ebird_dixon_observations.csv")
