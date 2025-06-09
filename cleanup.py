@@ -1,18 +1,47 @@
 import pandas as pd
 import os
-
-#file_path = Path("/Users/raulbazan/Desktop/HistoricalData/DixonMeadowPreserve/2025/April2025.csv")
-
-df = pd.read_csv("/Users/raulbazan/Desktop/HistoricalData/DixonMeadowPreserve/2025/April2025.csv")
-print(df)
+from pathlib import Path
 
 
-print(df.dtypes)
+# csv_files = list(Path("/Users/raulbazan/Desktop/HistoricalData/DixonMeadowPreserve/2025").glob("*.csv"))
 
-git config user.email "Raul.BazanSanchez@gmail.com"
+# for x in csv_files:
+# 	print(x)
 
-2025-04-30 08:33:00
 
-df['Mycol'] = pd.to_datetime(df['Mycol'], format='%Y%m%d:%H:%M:%S')
 
-'%Y%d%d:%H:%M:%S'
+from pathlib import Path
+import pandas as pd
+
+def getCsvFiles(path):
+    try:
+        directory = Path(path)
+        for file in directory.iterdir():
+            if file.is_file() and file.suffix == ".csv":
+                dataFrameCreator(file, directory)  # filename without .csv
+                #dataframes[df_name] = pd.read_csv(file)
+    except FileNotFoundError:
+        print("No files found.")
+    except Exception as e:
+        print(f"Error: {e}")
+    
+    #return dataframes
+
+def dataFrameCreator(file, directory):
+	df = pd.read_csv(file)
+	df['birdCount'] = df['howMany'].astype('Int64')
+	df = df.drop(['obsValid', 'obsReviewed', 'locationPrivate', 'exoticCategory', 'subId', 'howMany'], axis=1)
+	df['obsDt'] = pd.to_datetime(df['obsDt'], format='%Y-%m-%d %H:%M:%S') 
+	df = df.dropna(axis=0, subset=['birdCount'])
+	df = df.reset_index(drop=True)
+	print(df)
+
+	
+
+
+
+directory_path = "/Users/raulbazan/Desktop/HistoricalData/DixonMeadowPreserve/2025/"
+dfs = getCsvFiles(directory_path)
+
+# Example: view one
+#print(dfs['April2025'].head())
