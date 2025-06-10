@@ -27,6 +27,7 @@ def dataFrameCreator(file, directory):
 	df = df.drop(['obsValid', 'obsReviewed', 'locationPrivate', 'exoticCategory', 'subId', 'howMany'], axis=1)
 	df['obsDt'] = pd.to_datetime(df['obsDt'], format='%Y-%m-%d %H:%M:%S') 
 	df = df.dropna(axis=0, subset=['birdCount'])
+	df = df[df['birdCount'] <= 75]
 	df = df.reset_index(drop=True)
 	
 	target_path = '/Users/raulbazan/Desktop/CleanData/DixonMeadowPreserve/2025/' + csv_name
