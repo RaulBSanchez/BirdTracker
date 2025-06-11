@@ -31,3 +31,21 @@ CREATE TABLE dixon_meadow_preserve (
     latitude DOUBLE PRECISION,
     longitude DOUBLE PRECISION
 );
+
+
+
+
+
+
+select * FROM dixon_meadow_preserve
+
+
+ALTER SEQUENCE observation_id RESTART WITH 1;
+
+
+TRUNCATE TABLE dixon_meadow_preserve RESTART IDENTITY CASCADE;
+
+
+SELECT common_name, SUM(bird_count) FROM dixon_meadow_preserve
+GROUP BY common_name 
+HAVING SUM(bird_count) < 10
