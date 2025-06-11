@@ -29,6 +29,17 @@ def dataFrameCreator(file, directory):
 	df = df.dropna(axis=0, subset=['birdCount'])
 	df = df[df['birdCount'] <= 75]
 	df = df.reset_index(drop=True)
+
+	column_names = df.columns
+	print(column_names)
+
+
+	sql_order = ['speciesCode', 'comName', 'sciName', 'locId', 'locName', 'obsDt','birdCount', 'lat',
+       'lng']
+      
+
+	df = df[sql_order]
+
 	
 	target_path = '/Users/raulbazan/Desktop/CleanData/DixonMeadowPreserve/2025/' + csv_name
 	cleandatapath = Path(target_path)
