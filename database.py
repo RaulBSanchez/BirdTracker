@@ -7,11 +7,11 @@ from pathlib import Path
 
 
 
-#clean_data = "/Users/raulbazan/Desktop/CleanData/DixonMeadowPreserve/2025"
+clean_data = "/Users/raulbazan/Desktop/CleanData/DixonMeadowPreserve/2024"
 
 
 
-def insertSql (df):
+def insertSql (df, file):
     load_dotenv()
 
     conn = psycopg2.connect(
@@ -40,9 +40,10 @@ def insertSql (df):
 
     try:
         execute_values(cursor, insert_query, records)
+
     except: 
         print("didnt work")
-
+        print(file)
     conn.commit()
 
     cursor.close()
@@ -59,7 +60,7 @@ def getCsvFiles(path):
             if file.is_file() and file.suffix == ".csv":
                 #print(file)
                 df = pd.read_csv(file)
-                insertSql(df)
+                insertSql(df, file)
                   # filename without .csv
                 #dataframes[df_name] = pd.read_csv(file)
     except FileNotFoundError:
