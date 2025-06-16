@@ -41,7 +41,7 @@ def dataFrameCreator(file):
 	#print(df)
 
 	
-	target_path = '/Users/raulbazan/Desktop/CleanData/DixonMeadowPreserve/2024/' + csv_name
+	target_path = '/Users/raulbazan/Desktop/CleanData/DixonMeadowPreserve/2023/' + csv_name
 	cleandatapath = Path(target_path)
 	#print(target_path)
 	try: 
@@ -52,8 +52,8 @@ def dataFrameCreator(file):
 		#print(target_path)
 
 
-directory_path = "/Users/raulbazan/Desktop/HistoricalData/DixonMeadowPreserve/2024/"
-target_path = "/Users/raulbazan/Desktop/CleanData/DixonMeadowPreserve/2024"
+directory_path = "/Users/raulbazan/Desktop/HistoricalData/DixonMeadowPreserve/2023/"
+#target_path = "/Users/raulbazan/Desktop/CleanData/DixonMeadowPreserve/2024"
 dfs = getCsvFiles(directory_path)
 
 # Example: view one

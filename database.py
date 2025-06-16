@@ -7,7 +7,7 @@ from pathlib import Path
 
 
 
-clean_data = "/Users/raulbazan/Desktop/CleanData/DixonMeadowPreserve/2024"
+clean_data = "/Users/raulbazan/Desktop/CleanData/DixonMeadowPreserve/2021"
 
 
 
@@ -40,6 +40,7 @@ def insertSql (df, file):
 
     try:
         execute_values(cursor, insert_query, records)
+        print("success")
 
     except: 
         print("didnt work")
@@ -51,7 +52,7 @@ def insertSql (df, file):
     
 
 
-# print(df)
+#print(df)
 
 def getCsvFiles(path):
     try:

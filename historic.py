@@ -22,7 +22,7 @@ month_name = calendar.month_name[month]
 print(month_name + " this is the month name")
 
 csv_file_name = month_name + string_year
-path = '/Users/raulbazan/Desktop/HistoricalData/DixonMeadowPreserve/2024/' + '/' + csv_file_name + '.csv'
+path = '/Users/raulbazan/Desktop/HistoricalData/FDRPark/2021/' + '/' + csv_file_name + '.csv'
 filepath = Path(path)
 
 
@@ -51,7 +51,7 @@ df2 = pd.DataFrame()
 for i in range(1, num_days + 1):
     #current_date = START_DATE + datetime.timedelta(days=i)
     #print(current_date)
-    url = f'https://api.ebird.org/v2/data/obs/L3041917/historic/{year}/{month}/{i}'
+    url = f'https://api.ebird.org/v2/data/obs/L1025768/historic/{year}/{month}/{i}'
     response = requests.get(url, headers=headers)
     if response.status_code == 200:
         # Get the raw response text
