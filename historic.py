@@ -12,44 +12,61 @@ import calendar
 
 
 
-print("Enter Year")
-year = int(input())
-string_year = str(year)
-# print("Enter Month as a number")
-# month = int(input())
+# print("Enter Year")
+# year = int(input())
+# string_year = str(year)
+# # print("Enter Month as a number")
+# # month = int(input())
 
-# month_name = calendar.month_name[month]
-# print(month_name + " this is the month name")
+# # month_name = calendar.month_name[month]
+# # print(month_name + " this is the month name")
 
-csv_file_name = month_name + string_year
-path = '/Users/raulbazan/Desktop/HistoricalData/FDRPark/2021/' + '/' + csv_file_name + '.csv'
-filepath = Path(path)
+# csv_file_name = month_name + string_year
+# path = '/Users/raulbazan/Desktop/HistoricalData/FDRPark/2021/' + '/' + csv_file_name + '.csv'
+# filepath = Path(path)
+
+def month():
+
+    print("Enter Year")
+    year = int(input())
+    for month in range(1, 13):
+        month_name = calendar.month_name[month]
+        num_days = calendar.monthrange(year, month)[1]
+        print(month_name)
+        print(num_days, " number of days")
 
 
+# client_api = os.getenv('API_KEY')
+# # L3041917
 
+# # Set the API key in the request headers
+# headers = {
+#     'X-eBirdApiToken': client_api
+# }
 
-client_api = os.getenv('API_KEY')
-# L3041917
-
-# Set the API key in the request headers
-headers = {
-    'X-eBirdApiToken': client_api
-}
-
-
+month()
 
 bird_count = {}
 
 
 df = pd.DataFrame()
 
-num_days = calendar.monthrange(year, month)[1]
-print(num_days)
+# num_days = calendar.monthrange(year, month)[1]
+# print(num_days)
 
 # df2 = pd.DataFrame()
 
 
 def dataFetcher():
+    client_api = os.getenv('API_KEY')
+# L3041917
+
+# Set the API key in the request headers
+    headers = {
+        'X-eBirdApiToken': client_api
+    }
+
+
     for i in range(1, num_days + 1):
         #current_date = START_DATE + datetime.timedelta(days=i)
         #print(current_date)
