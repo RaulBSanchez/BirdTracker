@@ -12,65 +12,30 @@ import calendar
 
 
 
-# print("Enter Year")
-# year = int(input())
-# string_year = str(year)
-# # print("Enter Month as a number")
-# # month = int(input())
+def dataFetcher(month_name, num_days, year, month):
 
-# # month_name = calendar.month_name[month]
-# # print(month_name + " this is the month name")
+    string_year = str(year)
+    csv_file_name = month_name + string_year
+    path = '/Users/raulbazan/Desktop/HistoricalData/FDRPark/2022/' + '/' + csv_file_name + '.csv'
+    filepath = Path(path)
+    #month = month_name
+    #year = year
+    df = pd.DataFrame()
 
-# csv_file_name = month_name + string_year
-# path = '/Users/raulbazan/Desktop/HistoricalData/FDRPark/2021/' + '/' + csv_file_name + '.csv'
-# filepath = Path(path)
-
-def month():
-
-    print("Enter Year")
-    year = int(input())
-    for month in range(1, 13):
-        month_name = calendar.month_name[month]
-        num_days = calendar.monthrange(year, month)[1]
-        print(month_name)
-        print(num_days, " number of days")
-
-
-# client_api = os.getenv('API_KEY')
-# # L3041917
-
-# # Set the API key in the request headers
-# headers = {
-#     'X-eBirdApiToken': client_api
-# }
-
-month()
-
-bird_count = {}
-
-
-df = pd.DataFrame()
-
-# num_days = calendar.monthrange(year, month)[1]
-# print(num_days)
-
-# df2 = pd.DataFrame()
-
-
-def dataFetcher():
     client_api = os.getenv('API_KEY')
-# L3041917
+
 
 # Set the API key in the request headers
     headers = {
         'X-eBirdApiToken': client_api
     }
-
+    #print(headers, client_api)
 
     for i in range(1, num_days + 1):
         #current_date = START_DATE + datetime.timedelta(days=i)
         #print(current_date)
-        url = f'https://api.ebird.org/v2/data/obs/L1025768/historic/{year}/{month}/{i}'
+        url = f"https://api.ebird.org/v2/data/obs/L1025768/historic/{year}/{month}/{i}"
+        #print(url)
         response = requests.get(url, headers=headers)
         if response.status_code == 200:
             # Get the raw response text
@@ -93,3 +58,22 @@ def dataFetcher():
         df['obsDt'] = pd.to_datetime(df['obsDt'], errors='coerce')
 
     df.to_csv(filepath, index=False)
+    time.sleep(10)
+
+def month():
+
+    print("Enter Year")
+    year = int(input())
+    for month in range(2, 13):
+        month_name = calendar.month_name[month]
+        num_days = calendar.monthrange(year, month)[1]
+        #print(month_name)
+        #print(num_days, " number of days")
+        dataFetcher(month_name, num_days, year, month)
+
+month()
+
+
+
+
+

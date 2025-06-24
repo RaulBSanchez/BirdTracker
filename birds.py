@@ -5,7 +5,7 @@ import os
 load_dotenv()
 
 # URL for hotspot data
-url = 'https://api.ebird.org/v2/ref/hotspot/US-PA-101'
+url = "https://api.ebird.org/v2/data/obs/L3041917/historic/2022/1/1"
 client_api = os.getenv('API_KEY')
 
 
