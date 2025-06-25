@@ -16,7 +16,7 @@ def dataFetcher(month_name, num_days, year, month):
 
     string_year = str(year)
     csv_file_name = month_name + string_year
-    path = '/Users/raulbazan/Desktop/HistoricalData/FDRPark/2022/' + '/' + csv_file_name + '.csv'
+    path = '/Users/raulbazan/Desktop/HistoricalData/Wissahickon/2025/' + '/' + csv_file_name + '.csv'
     filepath = Path(path)
     #month = month_name
     #year = year
@@ -34,7 +34,7 @@ def dataFetcher(month_name, num_days, year, month):
     for i in range(1, num_days + 1):
         #current_date = START_DATE + datetime.timedelta(days=i)
         #print(current_date)
-        url = f"https://api.ebird.org/v2/data/obs/L1025768/historic/{year}/{month}/{i}"
+        url = f"https://api.ebird.org/v2/data/obs/L1145863/historic/{year}/{month}/{i}"
         #print(url)
         response = requests.get(url, headers=headers)
         if response.status_code == 200:
@@ -64,7 +64,7 @@ def month():
 
     print("Enter Year")
     year = int(input())
-    for month in range(2, 13):
+    for month in range(1, 6):
         month_name = calendar.month_name[month]
         num_days = calendar.monthrange(year, month)[1]
         #print(month_name)
