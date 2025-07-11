@@ -7,7 +7,8 @@ from pathlib import Path
 
 
 
-clean_data = "/Users/raulbazan/Desktop/CleanData/DixonMeadowPreserve/2021"
+clean_data = "/Users/raulbazan/Desktop/CleanData/NewData/"
+print(clean_data)
 
 
 

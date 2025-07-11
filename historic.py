@@ -15,8 +15,8 @@ import calendar
 def dataFetcher(month_name, num_days, year, month):
 
     string_year = str(year)
-    csv_file_name = month_name + string_year
-    path = '/Users/raulbazan/Desktop/HistoricalData/Wissahickon/2025/' + '/' + csv_file_name + '.csv'
+    csv_file_name = 'NavalYard' + month_name + string_year
+    path = '/Users/raulbazan/Desktop/HistoricalData/NewData/' + '/' + csv_file_name + '.csv'
     filepath = Path(path)
     #month = month_name
     #year = year
@@ -24,6 +24,7 @@ def dataFetcher(month_name, num_days, year, month):
 
     client_api = os.getenv('API_KEY')
 
+   
 
 # Set the API key in the request headers
     headers = {
@@ -34,8 +35,7 @@ def dataFetcher(month_name, num_days, year, month):
     for i in range(1, num_days + 1):
         #current_date = START_DATE + datetime.timedelta(days=i)
         #print(current_date)
-        url = f"https://api.ebird.org/v2/data/obs/L1145863/historic/{year}/{month}/{i}"
-        #print(url)
+        url = f"https://api.ebird.org/v2/data/obs/L1069194/historic/{year}/{month}/{i}"
         response = requests.get(url, headers=headers)
         if response.status_code == 200:
             # Get the raw response text
@@ -58,18 +58,30 @@ def dataFetcher(month_name, num_days, year, month):
         df['obsDt'] = pd.to_datetime(df['obsDt'], errors='coerce')
 
     df.to_csv(filepath, index=False)
-    time.sleep(10)
+    
 
 def month():
 
     print("Enter Year")
     year = int(input())
-    for month in range(1, 6):
-        month_name = calendar.month_name[month]
-        num_days = calendar.monthrange(year, month)[1]
+    # for month in range(1, 13):
+    #     month_name = calendar.month_name[month]
+    #     num_days = calendar.monthrange(year, month)[1]
         #print(month_name)
         #print(num_days, " number of days")
-        dataFetcher(month_name, num_days, year, month)
+        #dataFetcher(month_name, num_days, year, month)
+
+    
+
+    month_name = calendar.month_name[6]
+    # print(month_name)
+    num_days =  calendar.monthrange(2025, 6)[1]
+    # print(num_days)
+    # print(year)
+    # print(6)
+
+
+    dataFetcher(month_name, num_days, year, 6)
 
 month()
 
