@@ -61,27 +61,15 @@ def dataFetcher(month_name, num_days, year, month):
     
 
 def month():
-
+    # This method will iterate over the months and call the data fetcher in order to 
+    # get all the birds from the given month of the eBird Api
     print("Enter Year")
     year = int(input())
-    # for month in range(1, 13):
-    #     month_name = calendar.month_name[month]
-    #     num_days = calendar.monthrange(year, month)[1]
-        #print(month_name)
-        #print(num_days, " number of days")
-        #dataFetcher(month_name, num_days, year, month)
+    for month in range(1, 13):
+        month_name = calendar.month_name[month]
+        num_days = calendar.monthrange(year, month)[1]
+        dataFetcher(month_name, num_days, year, month)
 
-    
-
-    month_name = calendar.month_name[6]
-    # print(month_name)
-    num_days =  calendar.monthrange(2025, 6)[1]
-    # print(num_days)
-    # print(year)
-    # print(6)
-
-
-    dataFetcher(month_name, num_days, year, 6)
 
 month()
 
