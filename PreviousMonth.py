@@ -11,17 +11,8 @@ from pathlib import Path
 import calendar
 
 
-# Get the last month in order to get previous months birding data
-# today = datetime.date.today()
-# first = today.replace(day=1)
-# last_month = first - datetime.timedelta(days=1)
-# previous_month = last_month.month
-# previous_days = last_month.day
-# current_year = last_month.year
-# print(current_year)
 
-
-
+# Dictionary with locations 
 locations = {
 	"L1025768":	"Franklin Delano Roosevelt (FDR) Park",
 	"L1069194":	"Philadelphia Naval Yard (restricted access)",
@@ -36,17 +27,12 @@ locations = {
 
 
 def dataFetcher(last_month, previous_days, current_year, locationId, locationName):
-	print("from data dataFetcher")
-	print(last_month, previous_days, current_year, locationId, locationName)
 	string_month = str(last_month)
 	string_year = str(current_year)
-	#print(string_year, string_month)
 	csv_file_name = locationName + string_month + string_year
 	path = '/Users/raulbazan/Desktop/testdata' + '/' + csv_file_name + '.csv'
 	print(path)
 	filepath = Path(path)
-	# month = month_name
-	# year = year
 	df = pd.DataFrame()
 
 	client_api = os.getenv('API_KEY')
@@ -57,8 +43,7 @@ def dataFetcher(last_month, previous_days, current_year, locationId, locationNam
 	headers = {
         'X-eBirdApiToken': client_api
     }
-    #print(headers, client_api)
-
+    # For loop to iterate through the days of the previous month and create a csv file with the historic data
 	for i in range(1, previous_days + 1):
 	    #current_date = START_DATE + datetime.timedelta(days=i)
 	    #print(current_date)
@@ -86,10 +71,8 @@ def dataFetcher(last_month, previous_days, current_year, locationId, locationNam
 
 	df.to_csv(filepath, index=False)
 
-
+#Get previous month and days to get data from previous month. 
 for locationId,locationName  in locations.items():
-
-	
 	today = datetime.date.today()
 	first = today.replace(day=1)
 	last_month = first - datetime.timedelta(days=1)
