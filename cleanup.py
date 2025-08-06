@@ -7,8 +7,9 @@ def getCsvFiles(path):
         directory = Path(path)
         for file in directory.iterdir():
             if file.is_file() and file.suffix == ".csv":
-                dataFrameCreator(file)  # filename without .csv
-                #dataframes[df_name] = pd.read_csv(file)
+            	print(f"from getviles {file}")
+            	dataFrameCreator(file)
+            	#dataframes[df_name] = pd.read_csv(file)
     except FileNotFoundError:
         print("No files found.")
     except Exception as e:
@@ -20,7 +21,7 @@ def dataFrameCreator(file):
 	df = pd.read_csv(file)
 	string_path = str(file)
 	csv_name = string_path.split("/")[-1]
-	
+	print(f" csv name  {csv_name}")
 
 	
 	df['birdCount'] = df['howMany'].astype('Int64')
@@ -38,23 +39,27 @@ def dataFrameCreator(file):
 
 	df = df[sql_order]
 	#print("removed parameters")
-	#print(df)
+	print(df)
 
 	
-	target_path = '/Users/raulbazan/Desktop/CleanData/NewData/' + csv_name
+	target_path = '/Users/raulbazan/Desktop/BirdData/CleanData/NewData/'  + csv_name
+	print(target_path)
 	cleandatapath = Path(target_path)
+	print(f"cleandatapath: {cleandatapath}")
 	#print(target_path)
 	try: 
 		df.to_csv(cleandatapath, index=False)
 		print("Moved to clean data")
-	except:
-		print("didnt work")
-		#print(target_path)
+	except Exception as e:
+		print("save failed", e)
+		print("this didnt work", cleandatapath)
 
 
-directory_path = "/Users/raulbazan/Desktop/HistoricalData/NewData/"
+directory_path = "/Users/raulbazan/Desktop/BirdData/HistoricalData/NewData/"
 #target_path = "/Users/raulbazan/Desktop/CleanData/DixonMeadowPreserve/2024"
 dfs = getCsvFiles(directory_path)
 
 # Example: view one
 #print(dfs['April2025'].head())
+
+

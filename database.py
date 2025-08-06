@@ -7,7 +7,7 @@ from pathlib import Path
 
 
 #Location of the data to be moved to the database
-clean_data = "/Users/raulbazan/Desktop/CleanData/NewData/"
+clean_data = "/Users/raulbazan/Desktop/BirdData/CleanData/NewData/"
 
 
 

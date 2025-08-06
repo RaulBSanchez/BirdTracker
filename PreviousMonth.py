@@ -13,16 +13,23 @@ import calendar
 
 
 # Dictionary with locations 
+# locations = {
+# 	"L1025768":	"Franklin Delano Roosevelt (FDR) Park",
+# 	"L1069194":	"Philadelphia Naval Yard (restricted access)",
+# 	"L1145863":	"Wissahickon Valley Park--Houston Meadow",
+# 	"L3041917":	"Dixon Meadow Preserve",
+# 	"L504403":	"John Heinz NWR--impoundment (Philadelphia Co.)"
+# }
+
+
+
 locations = {
-	"L1025768":	"Franklin Delano Roosevelt (FDR) Park",
-	"L1069194":	"Philadelphia Naval Yard (restricted access)",
-	"L1145863":	"Wissahickon Valley Park--Houston Meadow",
-	"L3041917":	"Dixon Meadow Preserve",
-	"L504403":	"John Heinz NWR--impoundment (Philadelphia Co.)"
+	"L1025768":	"FDR",
+	"L1069194":	"PhiladelphiaNavalYard",
+	"L1145863":	"WissahickonValley",
+	"L3041917":	"DixonMeadowPreserve",
+	"L504403":	"JohnHeinz"
 }
-
-
-
 
 
 
@@ -30,7 +37,7 @@ def dataFetcher(last_month, previous_days, current_year, locationId, locationNam
 	string_month = str(last_month)
 	string_year = str(current_year)
 	csv_file_name = locationName + string_month + string_year
-	path = '/Users/raulbazan/Desktop/testdata' + '/' + csv_file_name + '.csv'
+	path = '/Users/raulbazan/Desktop/BirdData/HistoricalData/NewData' + '/' + csv_file_name + '.csv'
 	print(path)
 	filepath = Path(path)
 	df = pd.DataFrame()
