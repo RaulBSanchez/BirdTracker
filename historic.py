@@ -60,18 +60,54 @@ def dataFetcher(month_name, num_days, year, month):
     df.to_csv(filepath, index=False)
     
 
-def month():
+def main():
     # This method will iterate over the months and call the data fetcher in order to 
     # get all the birds from the given month of the eBird Api
-    print("Enter Year")
-    year = int(input())
-    for month in range(1, 13):
-        month_name = calendar.month_name[month]
-        num_days = calendar.monthrange(year, month)[1]
-        dataFetcher(month_name, num_days, year, month)
+    locations = {
+    1: ["L1025768", "FDR"],
+    2: ["L1069194" ,"Philadelphia Naval Yard"],
+    3: ["L1145863", "Wissahickon Valley"],
+    4: ["L3041917", "Dixon Meadow Preserve"],
+    5: ["L504403",  "John Heinz"]
+    }
+    
+    print("Please select a location to the historical data for")
 
 
-month()
+
+    for key, val in locations.items():
+        print(f" {key} : {val[1]}")
+
+    
+
+    while True:
+        user_input = input("enter number")
+        try:
+
+            value = int(user_input)
+            if value not in locations:
+
+                print("Please enter valid choice")
+                continue
+            
+            break
+                
+
+    
+        except ValueError:
+            print("Pleaes select a number")
+
+
+
+    # year = int(input())
+    # for month in range(1, 13):
+    #     month_name = calendar.month_name[month]
+    #     num_days = calendar.monthrange(year, month)[1]
+        #dataFetcher(month_name, num_days, year, month)
+    
+
+if __name__ == "__main__":
+    main()
 
 
 
