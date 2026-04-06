@@ -64,3 +64,8 @@ from pathlib import Path
 
 def testCleanUp():
 	print("hello from cleanup")
+
+
+
+if __name__ == "__main__":
+    testCleanUp()

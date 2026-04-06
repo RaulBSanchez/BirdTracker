@@ -7,7 +7,7 @@ from pathlib import Path
 
 
 #Location of the data to be moved to the database
-clean_data = "/Users/raulbazan/Desktop/BirdData/CleanData/NewData/"
+# clean_data = "/Users/raulbazan/Desktop/BirdData/CleanData/NewData/"
 
 
 
@@ -68,7 +68,14 @@ def getCsvFiles(path):
         print(f"Error: {e}")
 
 
-getCsvFiles(clean_data)
+# getCsvFiles(clean_data)
+
+def testDataBase():
+    print("hello from database")
+
+
+if __name__ == "__main__":
+    testDataBase()
 
 
 
