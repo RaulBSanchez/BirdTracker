@@ -2,8 +2,9 @@
 # from database import testDataBase
 # from previousMonth import testPrevious
 # from historic import testHistory
-
-
+import datetime
+from historic import dataFetcher
+from historic import fetch_historic_data
 
 def locationSelector():
     locations = {
@@ -53,7 +54,23 @@ def selectYear():
         except ValueError:
             print("Enter A valid choice")
 
+    return year
+
+
+
+def dateRange(year):
+    start_date = datetime.date(year, 1, 1)
+    end_date = datetime.date(year, 12, 31)
+    return start_date, end_date
+
 def main():
+
+
+    locationTag = locationSelector()
+    year = selectYear()
+
+
+    print(fetch_historic_data(locationTag, year))
 
 
     

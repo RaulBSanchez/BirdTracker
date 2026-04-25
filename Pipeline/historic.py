@@ -38,6 +38,7 @@ def dataFetcher(month_name, num_days, year, month, locationTag):
 
 # Set the API key in the request headers
     headers = {
+
         'X-eBirdApiToken': client_api
     }
     #print(headers, client_api)
@@ -80,6 +81,62 @@ def dataFetcher(month_name, num_days, year, month, locationTag):
                 # #df.to_csv(filepath, index=False)
 
     df.to_csv(filepath, index=False)
+
+
+
+def fetch_historic_data(location_tag, year):
+    client_api = os.getenv("API_KEY")
+
+    headers = {
+        "X-eBirdApiToken": client_api
+    }
+
+    today = datetime.date.today()
+
+    for month in range(1, 2):
+        if year == today.year and month > today.month:
+            break
+
+        month_name = calendar.month_name[month]
+        num_days = calendar.monthrange(year, month)[1]
+
+        df = pd.DataFrame()
+
+        for day in range(1, num_days + 1):
+            current_date = datetime.date(year, month, day)
+
+            if current_date >= today:
+                break
+
+            url = (
+                f"https://api.ebird.org/v2/data/obs/"
+                f"{location_tag}/historic/{year}/{month}/{day}"
+            )
+
+            response = requests.get(url, headers=headers)
+
+            if response.status_code == 200:
+                data = response.json()
+
+                if data:
+                    day_df = pd.DataFrame(data)
+                    df = pd.concat([df, day_df], ignore_index=True)
+
+            else:
+                print(f"Failed for {current_date}")
+
+            time.sleep(1)
+
+        if not df.empty:
+            df['obsDt'] = pd.to_datetime(df['obsDt'], errors='coerce')
+
+    
+    return df
+
+
+def testFunction(location, year):
+    return "Hello from test"
+
 
 
 # def main():

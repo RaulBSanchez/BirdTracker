@@ -1,8 +1,7 @@
 from cleanup import testCleanUp
 from database import testDataBase
 from previousMonth import testPrevious
-from historic import testHistory
-
+from historic import dataFetcher
 def run_pipeline():
     print("starting")
     #testCleanUp()
