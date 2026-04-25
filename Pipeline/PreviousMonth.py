@@ -23,17 +23,19 @@ import calendar
 
 
 
-locations = {
+
+
+def dataFetcher(last_month, previous_days, current_year, locationId, locationName):
+
+	locations = {
 	"L1025768":	"FDR",
 	"L1069194":	"PhiladelphiaNavalYard",
 	"L1145863":	"WissahickonValley",
 	"L3041917":	"DixonMeadowPreserve",
 	"L504403":	"JohnHeinz"
-}
+	}
 
 
-
-def dataFetcher(last_month, previous_days, current_year, locationId, locationName):
 	string_month = str(last_month)
 	string_year = str(current_year)
 	csv_file_name = locationName + string_month + string_year
@@ -79,14 +81,21 @@ def dataFetcher(last_month, previous_days, current_year, locationId, locationNam
 	df.to_csv(filepath, index=False)
 
 #Get previous month and days to get data from previous month. 
-for locationId,locationName  in locations.items():
-	today = datetime.date.today()
-	first = today.replace(day=1)
-	last_month = first - datetime.timedelta(days=1)
-	previous_month = last_month.month
-	previous_days = last_month.day
-	current_year = last_month.year
-	locationName = ''.join(e for e in locationName if e.isalnum())
-	dataFetcher(previous_month, previous_days, current_year, locationId, locationName)
+# for locationId,locationName  in locations.items():
+# 	today = datetime.date.today()
+# 	first = today.replace(day=1)
+# 	last_month = first - datetime.timedelta(days=1)
+# 	previous_month = last_month.month
+# 	previous_days = last_month.day
+# 	current_year = last_month.year
+# 	locationName = ''.join(e for e in locationName if e.isalnum())
+# 	dataFetcher(previous_month, previous_days, current_year, locationId, locationName)
+
+
+def testPrevious():
+	print("teseting")
+
+if __name__ == "__main__":
+    testCleanUp()
 
 

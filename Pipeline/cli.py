@@ -38,10 +38,23 @@ def locationSelector():
 
 def selectYear():
     years = (2020, 2021, 2022, 2023, 2024, 2025, 2026)
+    for year in years:
+        print(year)
+
+
+    while True:
+        try:
+            year = int(input("Enter number: "))
+            if year not in years:
+                print("Choose Valid Year")
+                continue
+            break
+
+        except ValueError:
+            print("Enter A valid choice")
 
 def main():
-    # This method will iterate over the months and call the data fetcher in order to 
-    # get all the birds from the given month of the eBird Api
+
 
     
     #print(locationTag)
