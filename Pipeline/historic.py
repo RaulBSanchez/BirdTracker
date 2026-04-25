@@ -93,7 +93,7 @@ def fetch_historic_data(location_tag, year):
 
     today = datetime.date.today()
 
-    for month in range(1, 2):
+    for month in range(1, 13):
         if year == today.year and month > today.month:
             break
 
@@ -103,9 +103,9 @@ def fetch_historic_data(location_tag, year):
         df = pd.DataFrame()
 
         for day in range(1, num_days + 1):
-            current_date = datetime.date(year, month, day)
+            historic_date = datetime.date(year, month, day)
 
-            if current_date >= today:
+            if historic_date >= today:
                 break
 
             url = (
@@ -127,6 +127,8 @@ def fetch_historic_data(location_tag, year):
 
             time.sleep(1)
 
+        print(f"Finished with {month_name}")
+
         if not df.empty:
             df['obsDt'] = pd.to_datetime(df['obsDt'], errors='coerce')
 
@@ -134,74 +136,6 @@ def fetch_historic_data(location_tag, year):
     return df
 
 
-def testFunction(location, year):
-    return "Hello from test"
-
-
-
-# def main():
-#     # This method will iterate over the months and call the data fetcher in order to 
-#     # get all the birds from the given month of the eBird Api
-#     locations = {
-#     1: ["L1025768", "FDR"],
-#     2: ["L1069194" ,"Philadelphia Naval Yard"],
-#     3: ["L1145863", "Wissahickon Valley"],
-#     4: ["L3041917", "Dixon Meadow Preserve"],
-#     5: ["L504403",  "John Heinz"]
-#     }
-#     years = (2020, 2021, 2022, 2023, 2024, 2025, 2026)
-    
-
-#     print("Please select a location to the historical data for")
-
-
-#     #Display the selection of locations
-#     for key, val in locations.items():
-#         print(f" {key} : {val[1]}")
-
-    
-#     while True:    
-#         try:
-#             locationValue = int(input("Enter number: "))
-#             locationTag = locations[locationValue][0]
-#             #print(locationTag, "from selector")
-#             if locationValue not in locations:
-#                 print("Please enter valid choice")
-#                 continue
-#             break
-                
-#         except ValueError:
-#             print("Pleaes select a number")
-
-#     print("Choose one of the following years")
-#     for year in years:
-#         print(year)
-
-
-#     while True:
-        
-#         try:
-#             year = int(input("Enter number: "))
-#             if year not in years:
-#                 print("Choose Valid Year")
-#                 continue
-#             break
-
-#         except ValueError:
-#             print("Enter A valid choice")
-
-            
-#     for month in range(3, 13):
-#         month_name = calendar.month_name[month]
-#         num_days = calendar.monthrange(year, month)[1]
-
-#         today = datetime.date.today()
-#         #print(today.year, today.month)
-#         #print(today, " todays month comparison")
-#         if year == today.year and month > today.month:
-#             break
-        
-#         dataFetcher(month_name, num_days, year, month, locationTag)
     
 
 if __name__ == "__main__":
