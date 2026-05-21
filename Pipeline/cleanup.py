@@ -2,70 +2,95 @@ import pandas as pd
 import os
 from pathlib import Path
 
-def getCsvFiles(path):
-    try:
-        directory = Path(path)
-        for file in directory.iterdir():
-            if file.is_file() and file.suffix == ".csv":
-            	print(f"from getviles {file}")
-            	dataFrameCreator(file)
-            	#dataframes[df_name] = pd.read_csv(file)
-    except FileNotFoundError:
-        print("No files found.")
-    except Exception as e:
-        print(f"Error: {e}")
-    
-    #return dataframes
-
-def dataFrameCreator(file):
-	df = pd.read_csv(file)
-	string_path = str(file)
-	csv_name = string_path.split("/")[-1]
-	print(f" csv name  {csv_name}")
-
-	
-	df['birdCount'] = df['howMany'].astype('Int64')
-	df = df.drop(['obsValid', 'obsReviewed', 'locationPrivate', 'exoticCategory', 'subId', 'howMany'], axis=1)
-	df['obsDt'] = pd.to_datetime(df['obsDt'], format='%Y-%m-%d %H:%M:%S') 
-	df = df.dropna()
-	df = df[df['birdCount'] <= 75]
-	df = df.reset_index(drop=True)
 
 
-
-	sql_order = ['speciesCode', 'comName', 'sciName', 'locId', 'locName', 'obsDt','birdCount', 'lat',
-       'lng']
-      
-
-	df = df[sql_order]
-	#print("removed parameters")
-	print(df)
-
-	
-	target_path = '/Users/raulbazan/Desktop/BirdData/CleanData/NewData/'  + csv_name
-	print(target_path)
-	cleandatapath = Path(target_path)
-	print(f"cleandatapath: {cleandatapath}")
-	#print(target_path)
-	try: 
-		df.to_csv(cleandatapath, index=False)
-		print("Moved to clean data")
-	except Exception as e:
-		print("save failed", e)
-		print("this didnt work", cleandatapath)
+RAW_DATA = Path('/Users/raulbazan/Projects/BirdTracker/Data/UncleanedData/')
+CLEAN_DATA_PATH = Path("/Users/raulbazan/Projects/BirdTracker/Data/CleanData")
 
 
-directory_path = "/Users/raulbazan/Desktop/BirdData/HistoricalData/NewData/"
-#target_path = "/Users/raulbazan/Desktop/CleanData/DixonMeadowPreserve/2024"
-dfs = getCsvFiles(directory_path)
+def get_csv_files(path):
+    directory = Path(path)
 
-Example: view one
-print(dfs['April2025'].head())
+    if not directory.exists():
+        print(f"No folder found: {directory}")
+        return []
 
-def testCleanUp():
-	print("hello from cleanup")
+    return [file for file in directory.iterdir() if file.is_file() and file.suffix == ".csv"]
+
+
+def clean_dataframe(file):
+    df = pd.read_csv(file)
+
+    df["birdCount"] = pd.to_numeric(df["howMany"], errors="coerce").astype("Int64")
+
+    df["obsDt"] = pd.to_datetime(
+        df["obsDt"],
+        format="%Y-%m-%d %H:%M:%S",
+        errors="coerce"
+    )
+
+    df = df.drop(
+        columns=[
+            "obsValid",
+            "obsReviewed",
+            "locationPrivate",
+            "exoticCategory",
+            "subId",
+            "howMany"
+        ],
+        errors="ignore"
+    )
+
+    df = df.dropna(subset=["speciesCode", "comName", "sciName", "locId", "locName", "obsDt", "birdCount"])
+
+    df = df[df["birdCount"] <= 75]
+
+    sql_order = [
+        "speciesCode",
+        "comName",
+        "sciName",
+        "locId",
+        "locName",
+        "obsDt",
+        "birdCount",
+        "lat",
+        "lng"
+    ]
+
+    df = df[sql_order]
+
+    return df.reset_index(drop=True)
+
+
+def save_clean_file(df, original_file):
+    CLEAN_DATA_PATH.mkdir(parents=True, exist_ok=True)
+
+    target_file = CLEAN_DATA_PATH / original_file.name
+
+    df.to_csv(target_file, index=False)
+
+    print(f"Saved clean file: {target_file}")
+
+
+def clean_all_files():
+    csv_files = get_csv_files(RAW_DATA)
+
+    cleaned_dfs = {}
+
+    for file in csv_files:
+        print(f"Cleaning: {file.name}")
+
+        df = clean_dataframe(file)
+        save_clean_file(df, file)
+
+        key = file.stem
+        cleaned_dfs[key] = df
+
+    return cleaned_dfs
+
 
 
 
 if __name__ == "__main__":
-    testCleanUp()
+    dfs = clean_all_files()
+
