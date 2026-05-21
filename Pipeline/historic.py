@@ -19,8 +19,8 @@ def dataFetcher(month_name, num_days, year, month, locationTag):
 
     string_year = str(year)
     string_month = str(month)
-    csv_file_name = 'NavalYard' + month_name + string_year
-    path = '/Users/raulbazan/Projects/BirdTracker/Data' + '/' + csv_file_name + '.csv'
+    csv_file_name = locationTag + month_name + string_year
+    path = '/Users/raulbazan/Projects/BirdTracker/Data/UncleanedData' + '/' + 'test' + '.csv'
     filepath = Path(path)
     #month = month_name
     #year = year
@@ -93,6 +93,8 @@ def fetch_historic_data(location_tag, year):
 
     today = datetime.date.today()
 
+    monthly_data = {}
+
     for month in range(1, 13):
         if year == today.year and month > today.month:
             break
@@ -101,6 +103,8 @@ def fetch_historic_data(location_tag, year):
         num_days = calendar.monthrange(year, month)[1]
 
         df = pd.DataFrame()
+
+        print(f"Starting {month_name}")
 
         for day in range(1, num_days + 1):
             historic_date = datetime.date(year, month, day)
@@ -123,17 +127,22 @@ def fetch_historic_data(location_tag, year):
                     df = pd.concat([df, day_df], ignore_index=True)
 
             else:
-                print(f"Failed for {current_date}")
+                print(f"Failed for {historic_date}")
 
             time.sleep(1)
 
-        print(f"Finished with {month_name}")
+        
 
         if not df.empty:
             df['obsDt'] = pd.to_datetime(df['obsDt'], errors='coerce')
 
+        key = f"{year}-{month:02d}"
+        monthly_data[key] = df
+
+        print(f"Done with {month}, {year}")
+
     
-    return df
+    return monthly_data
 
 
     

@@ -5,6 +5,7 @@
 import datetime
 from historic import dataFetcher
 from historic import fetch_historic_data
+from pathlib import Path
 
 def locationSelector():
     locations = {
@@ -27,6 +28,7 @@ def locationSelector():
             #print(locationTag, "from selector")
             if locationValue in locations:
                 locationTag = locations[locationValue][0]
+                locationName = locations[locationValue][1]
                 break
             else:
                 print(f"{locationValue}, was not a valid choice")
@@ -34,7 +36,7 @@ def locationSelector():
         except ValueError:
             print("Pleaes select a number")
 
-    return locationTag
+    return locationTag, locationName
 
 
 def selectYear():
@@ -63,15 +65,27 @@ def dateRange(year):
     end_date = datetime.date(year, 12, 31)
     return start_date, end_date
 
+def save_monthly_csvs(monthly_data, location_tag, year, locationName):
+    output_dir = Path('/Users/raulbazan/Projects/BirdTracker/Data/UncleanedData')
+    name = locationName.replace(" " , "")
+    for month_key, df in monthly_data.items():
+        if not df.empty:
+            filename = f"{name}_{month_key}.csv"
+            filepath = output_dir / filename
+
+            df.to_csv(filepath, index=False)
+
+
 def main():
 
 
-    locationTag = locationSelector()
+    locationTag, locationName = locationSelector()
     year = selectYear()
+    monthly_data = "temp"
 
-
-    print(fetch_historic_data(locationTag, year))
-
+    monthly_data = fetch_historic_data(locationTag, year)
+    save_monthly_csvs(monthly_data, locationTag, year, locationName)
+    
 
     
     #print(locationTag)

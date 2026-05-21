@@ -2,12 +2,11 @@ from cleanup import testCleanUp
 from database import testDataBase
 from previousMonth import testPrevious
 from historic import dataFetcher
+
+
+
 def run_pipeline():
-    print("starting")
-    #testCleanUp()
-    testDataBase()
-    testPrevious()
-    testHistory()
+    historic_df = dataFetcher()
 
 
 
