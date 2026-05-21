@@ -44,17 +44,28 @@ def clean_dataframe(file):
     df = df.dropna(subset=["speciesCode", "comName", "sciName", "locId", "locName", "obsDt", "birdCount"])
 
     df = df[df["birdCount"] <= 75]
+    
+    df = df.rename(columns={
+    "speciesCode": "species_code",
+    "comName": "common_name",
+    "sciName": "scientific_name",
+    "locId": "location_id",
+    "locName": "location_name",
+    "obsDt": "observation_datetime",
+    "birdCount": "bird_count",
+    "lat": "latitude",
+    "lng": "longitude"})
 
-    sql_order = [
-        "speciesCode",
-        "comName",
-        "sciName",
-        "locId",
-        "locName",
-        "obsDt",
-        "birdCount",
-        "lat",
-        "lng"
+    sql_order =[
+        "species_code",
+        "common_name",
+        "scientific_name",
+        "location_id",
+        "location_name",
+        "observation_datetime",
+        "bird_count",
+        "latitude",
+        "longitude"
     ]
 
     df = df[sql_order]
