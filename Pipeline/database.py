@@ -4,12 +4,10 @@ import pandas as pd
 import os
 from dotenv import load_dotenv
 from pathlib import Path
+from config import CLEAN_DATA_DIR
 
 
-#Location of the data to be moved to the database
-# clean_data = "/Users/raulbazan/Desktop/BirdData/CleanData/NewData/"
-# Location of the cleaned CSV files
-clean_data = "/Users/raulbazan/Projects/BirdTracker/Data/CleanData"
+
 
 
 def insertSql(df, file):
@@ -83,7 +81,7 @@ def getCsvFiles(path):
 
     try:
         directory = Path(path)
-
+        print(directory)
         for file in directory.iterdir():
 
             if file.is_file() and file.suffix == ".csv":
@@ -91,7 +89,7 @@ def getCsvFiles(path):
                 print(f"Processing: {file.name}")
 
                 df = pd.read_csv(file)
-
+                
                 insertSql(df, file)
 
     except FileNotFoundError:
@@ -100,14 +98,9 @@ def getCsvFiles(path):
     except Exception as e:
         print(f"Error: {e}")
 
-
-def testDataBase():
-    print("hello from database")
-
-
 if __name__ == "__main__":
 
-    getCsvFiles(clean_data)
+    getCsvFiles(CLEAN_DATA_DIR)
 
 
 

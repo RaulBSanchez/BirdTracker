@@ -1,12 +1,7 @@
 import pandas as pd
 import os
 from pathlib import Path
-
-
-
-RAW_DATA = Path('/Users/raulbazan/Projects/BirdTracker/Data/UncleanedData/')
-CLEAN_DATA_PATH = Path("/Users/raulbazan/Projects/BirdTracker/Data/CleanData")
-
+from config import CLEAN_DATA_DIR, UNCLEAN_DATA_DIR
 
 def get_csv_files(path):
     directory = Path(path)
@@ -74,9 +69,9 @@ def clean_dataframe(file):
 
 
 def save_clean_file(df, original_file):
-    CLEAN_DATA_PATH.mkdir(parents=True, exist_ok=True)
+    CLEAN_DATA_DIR.mkdir(parents=True, exist_ok=True)
 
-    target_file = CLEAN_DATA_PATH / original_file.name
+    target_file = CLEAN_DATA_DIR / original_file.name
 
     df.to_csv(target_file, index=False)
 
@@ -84,7 +79,7 @@ def save_clean_file(df, original_file):
 
 
 def clean_all_files():
-    csv_files = get_csv_files(RAW_DATA)
+    csv_files = get_csv_files(UNCLEAN_DATA_DIR)
 
     cleaned_dfs = {}
 
