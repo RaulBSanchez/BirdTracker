@@ -4,7 +4,7 @@ import pandas as pd
 import os
 from dotenv import load_dotenv
 from pathlib import Path
-from config import CLEAN_DATA_DIR
+from config import CLEAN_DATA_DIR, UNCLEAN_DATA_DIR
 
 
 

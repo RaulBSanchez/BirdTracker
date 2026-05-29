@@ -3,9 +3,9 @@
 # from previousMonth import testPrevious
 # from historic import testHistory
 import datetime
-from historic import dataFetcher
 from historic import fetch_historic_data
 from pathlib import Path
+from config import CLEAN_DATA_DIR, UNCLEAN_DATA_DIR
 
 def locationSelector():
     locations = {
@@ -86,45 +86,6 @@ def main():
     monthly_data = fetch_historic_data(locationTag, year)
     save_monthly_csvs(monthly_data, locationTag, year, locationName)
     
-
-    
-    #print(locationTag)
-
-    
-
-
-    #Display the selection of locations
-    
-
-    # print("Choose one of the following years")
-    # for year in years:
-    #     print(year)
-
-
-    # while True:
-        
-    #     try:
-    #         year = int(input("Enter number: "))
-    #         if year not in years:
-    #             print("Choose Valid Year")
-    #             continue
-    #         break
-
-    #     except ValueError:
-    #         print("Enter A valid choice")
-
-            
-    # for month in range(3, 13):
-    #     month_name = calendar.month_name[month]
-    #     num_days = calendar.monthrange(year, month)[1]
-
-    #     today = datetime.date.today()
-    #     #print(today.year, today.month)
-    #     #print(today, " todays month comparison")
-    #     if year == today.year and month > today.month:
-        #    break
-        
-        #dataFetcher(month_name, num_days, year, month, locationTag)
 
 main()
     

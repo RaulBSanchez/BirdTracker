@@ -12,75 +12,7 @@ import calendar
 #from datetime import date
 
 
-def dataFetcher(month_name, num_days, year, month, locationTag):
-    print("this is from data fetcher")
-    #print(month_name, num_days, year, month)
 
-
-    string_year = str(year)
-    string_month = str(month)
-    csv_file_name = locationTag + month_name + string_year
-    path = '/Users/raulbazan/Projects/BirdTracker/Data/UncleanedData' + '/' + 'test' + '.csv'
-    filepath = Path(path)
-    #month = month_name
-    #year = year
-    df = pd.DataFrame()
-
-    print(locationTag, "from data fetcher")
-    
-
-    client_api = os.getenv('API_KEY')
-    
-    today = datetime.date.today()
-
-
-    #print(f"{today}, todays date, current date {current_date}")
-
-# Set the API key in the request headers
-    headers = {
-
-        'X-eBirdApiToken': client_api
-    }
-    #print(headers, client_api)
-    for i in range(1, num_days + 1):
-        print(i)
-        # print("this is from the looooop")
-        current_date = datetime.date(year, month, i)
-        print(f"{current_date}, current date, {today}, today")
-        
-        if current_date >= today:
-            break
-
-        
-        
-        print(today, "todays data")
-        print(current_date, "this is current date for loop")
-        url = f"https://api.ebird.org/v2/data/obs/{locationTag}/historic/{year}/{month}/{i}"
-        response = requests.get(url, headers=headers)
-        if response.status_code == 200:
-                    # Get the raw response text
-            response_text = response.text
-            data = json.loads(response_text)
-                    #print(data)
-            if data:
-                day_df = pd.DataFrame(data)
-                df = pd.concat([df, day_df], ignore_index=True)
-            else:
-                print(f"No data available for {i}, {month}, {year}")
-        else:
-            print("Failed to get a response from eBird")
-                
-        time.sleep(1)
-
-        current_date += datetime.timedelta(days=1)
-
-
-        if not df.empty and 'obsDt' in df.columns:
-            df['obsDt'] = pd.to_datetime(df['obsDt'], errors='coerce')
-
-                # #df.to_csv(filepath, index=False)
-
-    df.to_csv(filepath, index=False)
 
 
 

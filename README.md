@@ -17,9 +17,6 @@ This project explores bird observation data collected from [eBird](https://ebird
 - PostgreSQL
 - Tableau Public
 
-## 🔗 Live Dashboard
-
-[View Tableau Dashboard](https://public.tableau.com/app/profile/raul.bazan/viz/BirdData_17514765571270/Dashboard1)
 
 ## 💡 Motivation
 
