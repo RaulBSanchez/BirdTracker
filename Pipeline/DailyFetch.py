@@ -9,10 +9,12 @@ load_dotenv()
 import time
 from pathlib import Path
 import calendar
+
+
 #from datetime import date
 
 
-def daily_fetch(location_tag, year):
+def daily_fetch():
 
 
     locations = {
@@ -28,31 +30,40 @@ def daily_fetch(location_tag, year):
         "X-eBirdApiToken": client_api
     }
 
-    today = datetime.date.today()
-    print(today)
+    yesterday = datetime.date.today() - datetime.timedelta(days=1)
+    year = yesterday.year
+    month = yesterday.month
+    day = yesterday.day
     df = pd.DataFrame()
-    url = (
-        f"https://api.ebird.org/v2/data/obs/"
-        f"L504403/historic/2026/06/04")
+
+
+    for location in locations:
+        
     
-    response = requests.get(url, headers=headers)
+        url = (
+            f"https://api.ebird.org/v2/data/obs/"
+            f"{location}/historic/{year}/{month}/{day}")
+    
+        response = requests.get(url, headers=headers)
 
-    if response.status_code == 200:
-        data = response.json()
+        if response.status_code == 200:
+            data = response.json()
 
-        if data:
-            day_df = pd.DataFrame(data)
-            df = pd.concat([df, day_df], ignore_index=True)
+            if data:
+                day_df = pd.DataFrame(data)
+                df = pd.concat([df, day_df], ignore_index=True)
 
-        else:
-            print(f"Failed for today")
+            else:
+                print(f"No data for {locations[location]} on {month} {day}")
 
-    print(df)
+        else: 
+            print("An error occured")
 
-location = "Hello"
-year = 2026
-daily_fetch(location, year)
+    return df, month, day
 
 
+
+if __name__ == "__main__":
+    daily_fetch()
 
 

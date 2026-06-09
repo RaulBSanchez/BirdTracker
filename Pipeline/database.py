@@ -28,7 +28,7 @@ def insertSql(df, file):
 
     # SQL insert query
     insert_query = """
-    INSERT INTO dixon_meadow_preserve (
+    INSERT INTO PhillyBirds (
         species_code,
         common_name,
         scientific_name,

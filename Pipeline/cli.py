@@ -6,6 +6,7 @@ import datetime
 from historic import fetch_historic_data
 from pathlib import Path
 from config import CLEAN_DATA_DIR, UNCLEAN_DATA_DIR
+from DailyFetch import daily_fetch
 
 def locationSelector():
     locations = {
@@ -74,7 +75,14 @@ def save_monthly_csvs(monthly_data, location_tag, year, locationName):
             filepath = output_dir / filename
 
             df.to_csv(filepath, index=False)
+def save_daily_csvs(df, month, day):
+    output_dir = Path('/Users/raulbazan/Projects/BirdTracker/Data/UncleanedData')
+    
+    if not df.empty:
+        filename = f"{month}_{day}.csv"
+        filepath = output_dir / filename
 
+        df.to_csv(filepath, index=False)
 
 def main():
 
@@ -85,6 +93,8 @@ def main():
 
     monthly_data = fetch_historic_data(locationTag, year)
     save_monthly_csvs(monthly_data, locationTag, year, locationName)
+    # daily_df, month, day = daily_fetch()
+    # save_daily_csvs(daily_df, month, day)
     
 
 main()
