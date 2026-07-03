@@ -20,7 +20,6 @@ def clean_dataframe(file):
 
     df["obsDt"] = pd.to_datetime(
         df["obsDt"],
-        format="%Y-%m-%d %H:%M:%S",
         errors="coerce"
     )
 

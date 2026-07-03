@@ -1,0 +1,30 @@
+species_code,common_name,scientific_name,location_id,location_name,observation_datetime,bird_count,latitude,longitude
+rewbla,Red-winged Blackbird,Agelaius phoeniceus,L1069194,Philadelphia Naval Yard (restricted access),2026-07-02 08:36:00,1,39.8876082,-75.1659143
+rthhum,Ruby-throated Hummingbird,Archilochus colubris,L1069194,Philadelphia Naval Yard (restricted access),2026-07-02 07:05:00,1,39.8876082,-75.1659143
+killde,Killdeer,Charadrius vociferus,L1069194,Philadelphia Naval Yard (restricted access),2026-07-02 07:05:00,1,39.8876082,-75.1659143
+laugul,Laughing Gull,Leucophaeus atricilla,L1069194,Philadelphia Naval Yard (restricted access),2026-07-02 07:05:00,4,39.8876082,-75.1659143
+ribgul,Ring-billed Gull,Larus delawarensis,L1069194,Philadelphia Naval Yard (restricted access),2026-07-02 07:05:00,8,39.8876082,-75.1659143
+comloo,Common Loon,Gavia immer,L1069194,Philadelphia Naval Yard (restricted access),2026-07-02 07:05:00,1,39.8876082,-75.1659143
+doccor,Double-crested Cormorant,Nannopterum auritum,L1069194,Philadelphia Naval Yard (restricted access),2026-07-02 07:05:00,9,39.8876082,-75.1659143
+turvul,Turkey Vulture,Cathartes aura,L1069194,Philadelphia Naval Yard (restricted access),2026-07-02 07:05:00,3,39.8876082,-75.1659143
+osprey,Osprey,Pandion haliaetus,L1069194,Philadelphia Naval Yard (restricted access),2026-07-02 07:05:00,7,39.8876082,-75.1659143
+grcfly,Great Crested Flycatcher,Myiarchus crinitus,L1069194,Philadelphia Naval Yard (restricted access),2026-07-02 07:05:00,1,39.8876082,-75.1659143
+easkin,Eastern Kingbird,Tyrannus tyrannus,L1069194,Philadelphia Naval Yard (restricted access),2026-07-02 07:05:00,3,39.8876082,-75.1659143
+eawvir1,Eastern Warbling Vireo,Vireo gilvus,L1069194,Philadelphia Naval Yard (restricted access),2026-07-02 07:05:00,1,39.8876082,-75.1659143
+blujay,Blue Jay,Cyanocitta cristata,L1069194,Philadelphia Naval Yard (restricted access),2026-07-02 07:05:00,1,39.8876082,-75.1659143
+nrwswa,Northern Rough-winged Swallow,Stelgidopteryx serripennis,L1069194,Philadelphia Naval Yard (restricted access),2026-07-02 07:05:00,2,39.8876082,-75.1659143
+barswa,Barn Swallow,Hirundo rustica,L1069194,Philadelphia Naval Yard (restricted access),2026-07-02 07:05:00,7,39.8876082,-75.1659143
+carwre,Carolina Wren,Thryothorus ludovicianus,L1069194,Philadelphia Naval Yard (restricted access),2026-07-02 07:05:00,1,39.8876082,-75.1659143
+eursta,European Starling,Sturnus vulgaris,L1069194,Philadelphia Naval Yard (restricted access),2026-07-02 07:05:00,12,39.8876082,-75.1659143
+grycat,Gray Catbird,Dumetella carolinensis,L1069194,Philadelphia Naval Yard (restricted access),2026-07-02 07:05:00,1,39.8876082,-75.1659143
+normoc,Northern Mockingbird,Mimus polyglottos,L1069194,Philadelphia Naval Yard (restricted access),2026-07-02 07:05:00,2,39.8876082,-75.1659143
+amerob,American Robin,Turdus migratorius,L1069194,Philadelphia Naval Yard (restricted access),2026-07-02 07:05:00,3,39.8876082,-75.1659143
+houspa,House Sparrow,Passer domesticus,L1069194,Philadelphia Naval Yard (restricted access),2026-07-02 07:05:00,10,39.8876082,-75.1659143
+houfin,House Finch,Haemorhous mexicanus,L1069194,Philadelphia Naval Yard (restricted access),2026-07-02 07:05:00,1,39.8876082,-75.1659143
+amegfi,American Goldfinch,Spinus tristis,L1069194,Philadelphia Naval Yard (restricted access),2026-07-02 07:05:00,2,39.8876082,-75.1659143
+chispa,Chipping Sparrow,Spizella passerina,L1069194,Philadelphia Naval Yard (restricted access),2026-07-02 07:05:00,1,39.8876082,-75.1659143
+orcori,Orchard Oriole,Icterus spurius,L1069194,Philadelphia Naval Yard (restricted access),2026-07-02 07:05:00,1,39.8876082,-75.1659143
+balori,Baltimore Oriole,Icterus galbula,L1069194,Philadelphia Naval Yard (restricted access),2026-07-02 07:05:00,2,39.8876082,-75.1659143
+bnhcow,Brown-headed Cowbird,Molothrus ater,L1069194,Philadelphia Naval Yard (restricted access),2026-07-02 07:05:00,2,39.8876082,-75.1659143
+comgra,Common Grackle,Quiscalus quiscula,L1069194,Philadelphia Naval Yard (restricted access),2026-07-02 07:05:00,2,39.8876082,-75.1659143
+norcar,Northern Cardinal,Cardinalis cardinalis,L1069194,Philadelphia Naval Yard (restricted access),2026-07-02 07:05:00,2,39.8876082,-75.1659143
