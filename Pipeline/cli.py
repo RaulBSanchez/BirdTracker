@@ -86,6 +86,7 @@ def save_prev_month(df, month, year):
 
 
 def save_daily_csvs(df, month, day):
+    output_dir = Path('/Users/raulbazan/Projects/BirdTracker/Data/UncleanedData')
     if not df.empty:
         filename = f"{month}_{day}.csv"
         filepath = output_dir / filename

@@ -26,6 +26,7 @@ def fetch_historic_data(location_tag, year):
     today = datetime.date.today()
 
     monthly_data = {}
+    df = pd.DataFrame()
 
     for month in range(1, 13):
         if year == today.year and month > today.month:
@@ -34,7 +35,7 @@ def fetch_historic_data(location_tag, year):
         month_name = calendar.month_name[month]
         num_days = calendar.monthrange(year, month)[1]
 
-        df = pd.DataFrame()
+        
 
         print(f"Starting {month_name}")
 
@@ -79,8 +80,6 @@ def fetch_historic_data(location_tag, year):
 
     
 
-if __name__ == "__main__":
-    main()
   
 
 
