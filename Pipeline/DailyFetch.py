@@ -30,7 +30,7 @@ def daily_fetch():
         "X-eBirdApiToken": client_api
     }
 
-    yesterday = datetime.date.today() - datetime.timedelta(days=1)
+    yesterday = datetime.date.today() - datetime.timedelta(days=2)
     year = yesterday.year
     month = yesterday.month
     day = yesterday.day

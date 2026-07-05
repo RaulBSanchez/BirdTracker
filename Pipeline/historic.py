@@ -74,7 +74,7 @@ def fetch_historic_data(location_tag, year):
         print(f"Done with {month}, {year}")
 
     
-    return monthly_data
+    return df
 
 
     

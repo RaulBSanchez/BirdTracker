@@ -88,7 +88,7 @@ def dataFetcher():
 		df['obsDt'] = pd.to_datetime(df['obsDt'], errors='coerce')
 
 	df.to_csv(filepath, index=False)
-	return df
+	return df, previous_month, current_year
 
 
 
@@ -98,7 +98,5 @@ def dataFetcher():
 
 
 if __name__ == "__main__":
-	
-	df = dataFetcher()
-	print(df, "this is from main")
+	dataFetcher()
 
