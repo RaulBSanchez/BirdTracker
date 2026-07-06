@@ -65,6 +65,10 @@ def dateRange(year):
     end_date = datetime.date(year, 12, 31)
     return start_date, end_date
 
+
+
+
+
 def save_monthly_csvs(monthly_data, location_tag, year, locationName):
     output_dir = Path('/Users/raulbazan/Projects/BirdTracker/Data/UncleanedData')
     name = locationName.replace(" " , "")
@@ -119,23 +123,22 @@ def main():
 
     while True:
         try:
-            selection = int(input("Enter a number"))
+            selection = int(input("Enter a number: "))
             #print(selection)
             if selection == 1:
-                print("option 1")
+                print("Running the daily run for all bird sightings around Philly")
                 daily_df, month, day = daily_fetch()
                 save_daily_csvs(daily_df, month, day)
                 break
             elif selection == 2:
-                print("option two")
-                #return df, previous_month, current_year
+                print("Running the previous month run for all locations")
                 df, month, year = dataFetcher()
                 save_prev_month(df, month, year)
 
                
                 break
             elif selection == 3:
-                print("Historical Fetcher")
+                print("Running the historical fetcher, please select the location and year")
                 locationTag, locationName = locationSelector()
                 year = selectYear()
                 monthly_data = fetch_historic_data(locationTag, year)
@@ -149,6 +152,6 @@ def main():
 
 
     
-
-main()
+if __name__ == "__main__":
+    main()
     
