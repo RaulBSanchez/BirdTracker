@@ -11,5 +11,10 @@ CREATE TABLE IF NOT EXISTS public.phillybirds (
     observation_datetime TIMESTAMP,
     bird_count           INTEGER,
     latitude             DOUBLE PRECISION,
-    longitude            DOUBLE PRECISION
+    longitude            DOUBLE PRECISION,
+    observation_date     DATE GENERATED ALWAYS AS (observation_datetime::date) STORED,
+
+    -- One row per species, per location, per day; loads upsert on this key
+    CONSTRAINT phillybirds_species_location_date_key
+        UNIQUE (species_code, location_id, observation_date)
 );

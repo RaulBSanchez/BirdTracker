@@ -9,6 +9,7 @@ load_dotenv()
 import time
 from pathlib import Path
 import calendar
+from config import LOCATIONS
 
 
 #from datetime import date
@@ -16,14 +17,6 @@ import calendar
 
 def daily_fetch():
 
-
-    locations = {
-	"L1025768":	"FDR",
-	"L1069194":	"PhiladelphiaNavalYard",
-	"L1145863":	"WissahickonValley",
-	"L3041917":	"DixonMeadowPreserve",
-	"L504403":	"JohnHeinz"
-	}
     client_api = os.getenv("API_KEY")
 
     headers = {
@@ -37,7 +30,7 @@ def daily_fetch():
     df = pd.DataFrame()
 
 
-    for location in locations:
+    for location in LOCATIONS:
         
     
         url = (
@@ -54,7 +47,7 @@ def daily_fetch():
                 df = pd.concat([df, day_df], ignore_index=True)
 
             else:
-                print(f"No data for {locations[location]} on {month} {day}")
+                print(f"No data for {LOCATIONS[location]} on {month} {day}")
 
         else: 
             print("An error occured")

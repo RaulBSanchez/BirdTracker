@@ -9,6 +9,7 @@ load_dotenv()
 import time
 from pathlib import Path
 import calendar
+from config import LOCATIONS
 
 
 
@@ -21,13 +22,6 @@ import calendar
 def dataFetcher():
 
 	
-	locations = {
-	"L1025768":	"FDR",
-	"L1069194":	"PhiladelphiaNavalYard",
-	"L1145863":	"WissahickonValley",
-	"L3041917":	"DixonMeadowPreserve",
-	"L504403":	"JohnHeinz"
-	}
 
 	#previous_month, previous_days, current_yea
 
@@ -54,7 +48,7 @@ def dataFetcher():
         'X-eBirdApiToken': client_api
     }
     # For loop to iterate through the days of the previous month and create a csv file with the historic data
-	for location in locations:
+	for location in LOCATIONS:
 		for i in range(1, previous_days + 1):
 			url = f"https://api.ebird.org/v2/data/obs/{location}/historic/{current_year}/{previous_month}/{i}"
 			response = requests.get(url, headers=headers)

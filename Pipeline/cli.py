@@ -5,19 +5,17 @@
 import datetime
 from historic import fetch_historic_data
 from pathlib import Path
-from config import CLEAN_DATA_DIR, UNCLEAN_DATA_DIR
+from config import CLEAN_DATA_DIR, UNCLEAN_DATA_DIR, LOCATIONS
 from DailyFetch import daily_fetch
 from previousMonth import dataFetcher
+from pipeline import run_pipeline
 
 def locationSelector():
     locations = {
-    1: ["L1025768", "FDR"],
-    2: ["L1069194" ,"Philadelphia Naval Yard"],
-    3: ["L1145863", "Wissahickon Valley"],
-    4: ["L3041917", "Dixon Meadow Preserve"],
-    5: ["L504403",  "John Heinz"]
+        number: [tag, name]
+        for number, (tag, name) in enumerate(LOCATIONS.items(), start=1)
     }
-    
+
 
     print("Please select a location to the historical data for")
 
@@ -126,11 +124,14 @@ def main():
                 historic_df = fetch_historic_data(locationTag, year)
                 historic_save(historic_df, locationName, year)
                 break
-            else: 
+            else:
                 print("please enter a valid selection")
-            
+
         except ValueError:
             print("Enter Valid Option")
+
+    # Clean whatever was just fetched and load it into PostgreSQL
+    run_pipeline()
 
 
     

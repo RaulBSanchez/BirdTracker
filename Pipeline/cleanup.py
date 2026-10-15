@@ -1,7 +1,7 @@
 import pandas as pd
 import os
 from pathlib import Path
-from config import CLEAN_DATA_DIR, UNCLEAN_DATA_DIR
+from config import CLEAN_DATA_DIR, UNCLEAN_DATA_DIR, ARCHIVE_RAW_DIR
 
 def get_csv_files(path):
     directory = Path(path)
@@ -87,6 +87,10 @@ def clean_all_files():
 
         df = clean_dataframe(file)
         save_clean_file(df, file)
+
+        # Archive the raw file so the next run doesn't clean it again
+        ARCHIVE_RAW_DIR.mkdir(parents=True, exist_ok=True)
+        file.replace(ARCHIVE_RAW_DIR / file.name)
 
         key = file.stem
         cleaned_dfs[key] = df
