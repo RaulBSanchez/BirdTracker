@@ -42,14 +42,6 @@ def dataFetcher():
 
 
 
-	string_month = str(last_month)
-	string_year = str(current_year)
-	csv_file_name =  f"{string_month}{string_year}.csv"
-	# path = '/Users/raulbazan/Desktop/BirdData/HistoricalData/NewData' + '/' + csv_file_name + '.csv'
-	#print(path)
-	output_dir = Path('/Users/raulbazan/Projects/BirdTracker/Data/UncleanedData')
-
-	filepath = output_dir / csv_file_name
 	
 	df = pd.DataFrame()
 	
@@ -87,7 +79,6 @@ def dataFetcher():
 	if not df.empty and 'obsDt' in df.columns:
 		df['obsDt'] = pd.to_datetime(df['obsDt'], errors='coerce')
 
-	df.to_csv(filepath, index=False)
 	return df, previous_month, current_year
 
 

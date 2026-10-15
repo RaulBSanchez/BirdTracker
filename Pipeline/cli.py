@@ -41,7 +41,7 @@ def locationSelector():
     return locationTag, locationName
 
 def selectYear():
-    years = (2020, 2021, 2022, 2023, 2024, 2025, 2026)
+    years = tuple(range(2020, datetime.date.today().year + 1))
     for year in years:
         print(year)
 
@@ -69,42 +69,24 @@ def dateRange(year):
 
 
 
-def save_monthly_csvs(monthly_data, location_tag, year, locationName):
-    output_dir = Path('/Users/raulbazan/Projects/BirdTracker/Data/UncleanedData')
-    name = locationName.replace(" " , "")
-    for month_key, df in monthly_data.items():
-        if not df.empty:
-            filename = f"{name}_{month_key}.csv"
-            filepath = output_dir / filename
+def save_csv(df, filename):
+    if not df.empty:
+        UNCLEAN_DATA_DIR.mkdir(parents=True, exist_ok=True)
+        filepath = UNCLEAN_DATA_DIR / filename
 
-            df.to_csv(filepath, index=False)
+        df.to_csv(filepath, index=False)
+        print(f"Saved: {filepath}")
 
 def save_prev_month(df, month, year):
-    output_dir = Path('/Users/raulbazan/Projects/BirdTracker/Data/UncleanedData')
-    if not df.empty:
-        filename = f"{month}_{year}.csv"
-        filepath = output_dir / filename
-
-        df.to_csv(filepath, index=False)
+    save_csv(df, f"monthly_{year}-{month:02d}.csv")
 
 
-
-def save_daily_csvs(df, month, day):
-    output_dir = Path('/Users/raulbazan/Projects/BirdTracker/Data/UncleanedData')
-    if not df.empty:
-        filename = f"{month}_{day}.csv"
-        filepath = output_dir / filename
-
-        df.to_csv(filepath, index=False)
+def save_daily_csvs(df, date):
+    save_csv(df, f"daily_{date.isoformat()}.csv")
 
 def historic_save(df, locationName, year):
-    output_dir = Path('/Users/raulbazan/Projects/BirdTracker/Data/UncleanedData')
-
-    if not df.empty:
-        filename = f"{locationName}_{year}.csv"
-        filepath = output_dir / filename
-
-        df.to_csv(filepath, index=False)
+    name = locationName.replace(" ", "")
+    save_csv(df, f"{name}_{year}.csv")
 
 def main():
 
@@ -127,8 +109,8 @@ def main():
             #print(selection)
             if selection == 1:
                 print("Running the daily run for all bird sightings around Philly")
-                daily_df, month, day = daily_fetch()
-                save_daily_csvs(daily_df, month, day)
+                daily_df, date = daily_fetch()
+                save_daily_csvs(daily_df, date)
                 break
             elif selection == 2:
                 print("Running the previous month run for all locations")
@@ -141,8 +123,8 @@ def main():
                 print("Running the historical fetcher, please select the location and year")
                 locationTag, locationName = locationSelector()
                 year = selectYear()
-                monthly_data = fetch_historic_data(locationTag, year)
-                historic_save(monthly_data, locationName, year)
+                historic_df = fetch_historic_data(locationTag, year)
+                historic_save(historic_df, locationName, year)
                 break
             else: 
                 print("please enter a valid selection")

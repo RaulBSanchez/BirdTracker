@@ -25,7 +25,6 @@ def fetch_historic_data(location_tag, year):
 
     today = datetime.date.today()
 
-    monthly_data = {}
     df = pd.DataFrame()
 
     for month in range(1, 13):
@@ -64,17 +63,11 @@ def fetch_historic_data(location_tag, year):
 
             time.sleep(1)
 
-        
+        print(f"Done with {month_name}, {year}")
 
-        if not df.empty:
-            df['obsDt'] = pd.to_datetime(df['obsDt'], errors='coerce')
+    if not df.empty:
+        df['obsDt'] = pd.to_datetime(df['obsDt'], errors='coerce')
 
-        key = f"{year}-{month:02d}"
-        monthly_data[key] = df
-
-        print(f"Done with {month}, {year}")
-
-    
     return df
 
 

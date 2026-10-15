@@ -59,7 +59,7 @@ def daily_fetch():
         else: 
             print("An error occured")
 
-    return df, month, day
+    return df, yesterday
 
 
 
