@@ -1,4 +1,4 @@
-#from cleanup import testCleanUp
+# from cleanup import testCleanUp
 # from database import testDataBase
 # from previousMonth import testPrevious
 # from historic import testHistory
@@ -10,22 +10,22 @@ from DailyFetch import daily_fetch
 from previousMonth import dataFetcher
 from pipeline import run_pipeline
 
+
 def locationSelector():
     locations = {
         number: [tag, name]
         for number, (tag, name) in enumerate(LOCATIONS.items(), start=1)
     }
 
-
     print("Please select a location to the historical data for")
 
     for key, val in locations.items():
         print(f" {key} : {val[1]}")
-    
-    while True:    
+
+    while True:
         try:
-            locationValue = int(input("Enter number: "))        
-            #print(locationTag, "from selector")
+            locationValue = int(input("Enter number: "))
+            # print(locationTag, "from selector")
             if locationValue in locations:
                 locationTag = locations[locationValue][0]
                 locationName = locations[locationValue][1]
@@ -38,11 +38,11 @@ def locationSelector():
 
     return locationTag, locationName
 
+
 def selectYear():
     years = tuple(range(2020, datetime.date.today().year + 1))
     for year in years:
         print(year)
-
 
     while True:
         try:
@@ -64,9 +64,6 @@ def dateRange(year):
     return start_date, end_date
 
 
-
-
-
 def save_csv(df, filename):
     if not df.empty:
         UNCLEAN_DATA_DIR.mkdir(parents=True, exist_ok=True)
@@ -75,6 +72,7 @@ def save_csv(df, filename):
         df.to_csv(filepath, index=False)
         print(f"Saved: {filepath}")
 
+
 def save_prev_month(df, month, year):
     save_csv(df, f"monthly_{year}-{month:02d}.csv")
 
@@ -82,13 +80,13 @@ def save_prev_month(df, month, year):
 def save_daily_csvs(df, date):
     save_csv(df, f"daily_{date.isoformat()}.csv")
 
+
 def historic_save(df, locationName, year):
     name = locationName.replace(" ", "")
     save_csv(df, f"{name}_{year}.csv")
 
+
 def main():
-
-
     options = {
         1: "Daily Fetch",
         2: "Monthly Fetch",
@@ -98,13 +96,10 @@ def main():
     for key, val in options.items():
         print(f" {key} : {val}")
 
-
-    
-
     while True:
         try:
             selection = int(input("Enter a number: "))
-            #print(selection)
+            # print(selection)
             if selection == 1:
                 print("Running the daily run for all bird sightings around Philly")
                 daily_df, date = daily_fetch()
@@ -114,8 +109,6 @@ def main():
                 print("Running the previous month run for all locations")
                 df, month, year = dataFetcher()
                 save_prev_month(df, month, year)
-
-               
                 break
             elif selection == 3:
                 print("Running the historical fetcher, please select the location and year")
@@ -134,7 +127,5 @@ def main():
     run_pipeline()
 
 
-    
 if __name__ == "__main__":
     main()
-    

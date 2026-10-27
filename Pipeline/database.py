@@ -7,11 +7,7 @@ from pathlib import Path
 from config import CLEAN_DATA_DIR, ARCHIVE_LOADED_DIR
 
 
-
-
-
 def insertSql(df, file):
-
     # Load environment variables
     load_dotenv()
 
@@ -83,7 +79,6 @@ def insertSql(df, file):
         return True
 
     except Exception as e:
-
         conn.rollback()
 
         print(f"Failed to upload: {file.name}")
@@ -97,14 +92,11 @@ def insertSql(df, file):
 
 # Parse CSV files and send them to PostgreSQL
 def getCsvFiles(path):
-
     try:
         directory = Path(path)
         print(directory)
         for file in directory.iterdir():
-
             if file.is_file() and file.suffix == ".csv":
-
                 print(f"Processing: {file.name}")
 
                 df = pd.read_csv(file)
@@ -120,9 +112,6 @@ def getCsvFiles(path):
     except Exception as e:
         print(f"Error: {e}")
 
+
 if __name__ == "__main__":
-
     getCsvFiles(CLEAN_DATA_DIR)
-
-
-

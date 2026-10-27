@@ -10,9 +10,8 @@ from pathlib import Path
 load_dotenv()
 
 
-
 def get_connection():
-# Connect to PostgreSQL
+    # Connect to PostgreSQL
     conn = psycopg2.connect(
         database=os.getenv("DB_NAME"),
         user=os.getenv("DB_USER"),
@@ -22,6 +21,3 @@ def get_connection():
     )
 
     return conn
-
-
-

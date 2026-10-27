@@ -4,8 +4,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 DATA_DIR = BASE_DIR / "Data"
 
-CLEAN_DATA_DIR = DATA_DIR / "CleanData" 
-UNCLEAN_DATA_DIR = DATA_DIR / "UncleanedData" 
+CLEAN_DATA_DIR = DATA_DIR / "CleanData"
+UNCLEAN_DATA_DIR = DATA_DIR / "UncleanedData"
 
 # Files move here once they've been processed, so they aren't picked up again
 ARCHIVE_RAW_DIR = DATA_DIR / "Archive" / "Raw"

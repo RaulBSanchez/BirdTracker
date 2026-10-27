@@ -1,6 +1,6 @@
 import requests
 import json
-from dotenv import load_dotenv, dotenv_values 
+from dotenv import load_dotenv, dotenv_values
 import os
 import pandas as pd
 import datetime
@@ -9,11 +9,7 @@ load_dotenv()
 import time
 from pathlib import Path
 import calendar
-#from datetime import date
-
-
-
-
+# from datetime import date
 
 
 def fetch_historic_data(location_tag, year):
@@ -33,8 +29,6 @@ def fetch_historic_data(location_tag, year):
 
         month_name = calendar.month_name[month]
         num_days = calendar.monthrange(year, month)[1]
-
-        
 
         print(f"Starting {month_name}")
 
@@ -69,10 +63,3 @@ def fetch_historic_data(location_tag, year):
         df['obsDt'] = pd.to_datetime(df['obsDt'], errors='coerce')
 
     return df
-
-
-    
-
-  
-
-

@@ -16,7 +16,6 @@ from pathlib import Path
 # """
 
 
-
 # try:
 #     conn = get_connection()
 #     cursor = conn.cursor()
@@ -29,19 +28,16 @@ from pathlib import Path
 #     cursor.close()
 #     conn.close()
 
-
 # finally:
 #     if conn:
 #         conn.close()
-
-
 
 
 def run_query(filename):
     conn = None
     try:
         sql_path = Path(__file__).parent / filename
-        
+
         with open(sql_path, "r") as file:
             query = file.read()
             print(query)
@@ -49,21 +45,21 @@ def run_query(filename):
             cursor = conn.cursor()
             cursor.execute(query)
             results = cursor.fetchall()
-            #print(results)
             # print(results)
-            #df = pd.read_sql(query, conn)
+            # print(results)
+            # df = pd.read_sql(query, conn)
             columns = [desc[0] for desc in cursor.description]
             df = pd.DataFrame(results, columns=columns)
             cursor.close()
             return df
 
-
     except:
         print("didnt work")
 
-    finally: 
+    finally:
         if conn:
             conn.close()
+
 
 location_birds = run_query("unique_location.sql")
 print(location_birds)

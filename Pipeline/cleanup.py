@@ -3,6 +3,7 @@ import os
 from pathlib import Path
 from config import CLEAN_DATA_DIR, UNCLEAN_DATA_DIR, ARCHIVE_RAW_DIR
 
+
 def get_csv_files(path):
     directory = Path(path)
 
@@ -38,19 +39,20 @@ def clean_dataframe(file):
     df = df.dropna(subset=["speciesCode", "comName", "sciName", "locId", "locName", "obsDt", "birdCount"])
 
     df = df[df["birdCount"] <= 75]
-    
-    df = df.rename(columns={
-    "speciesCode": "species_code",
-    "comName": "common_name",
-    "sciName": "scientific_name",
-    "locId": "location_id",
-    "locName": "location_name",
-    "obsDt": "observation_datetime",
-    "birdCount": "bird_count",
-    "lat": "latitude",
-    "lng": "longitude"})
 
-    sql_order =[
+    df = df.rename(columns={
+        "speciesCode": "species_code",
+        "comName": "common_name",
+        "sciName": "scientific_name",
+        "locId": "location_id",
+        "locName": "location_name",
+        "obsDt": "observation_datetime",
+        "birdCount": "bird_count",
+        "lat": "latitude",
+        "lng": "longitude"
+    })
+
+    sql_order = [
         "species_code",
         "common_name",
         "scientific_name",
@@ -98,8 +100,5 @@ def clean_all_files():
     return cleaned_dfs
 
 
-
-
 if __name__ == "__main__":
     dfs = clean_all_files()
-
