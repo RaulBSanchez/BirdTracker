@@ -7,6 +7,7 @@ from historic import fetch_historic_data
 from pathlib import Path
 from config import CLEAN_DATA_DIR, UNCLEAN_DATA_DIR, LOCATIONS
 from DailyFetch import daily_fetch
+from DateRangeFetch import fetch_date_range
 from previousMonth import dataFetcher
 from pipeline import run_pipeline
 
@@ -64,6 +65,32 @@ def dateRange(year):
     return start_date, end_date
 
 
+def enterDate(prompt):
+    while True:
+        try:
+            return datetime.date.fromisoformat(input(prompt).strip())
+
+        except ValueError:
+            print("Enter the date as YYYY-MM-DD")
+
+
+def selectDateRange():
+    yesterday = datetime.date.today() - datetime.timedelta(days=1)
+
+    while True:
+        start_date = enterDate("Start date (YYYY-MM-DD): ")
+        end_date = enterDate("End date (YYYY-MM-DD): ")
+
+        if start_date > end_date:
+            print("Start date must be on or before the end date")
+        elif end_date > yesterday:
+            print(f"End date can't be later than yesterday ({yesterday.isoformat()})")
+        else:
+            break
+
+    return start_date, end_date
+
+
 def save_csv(df, filename):
     if not df.empty:
         UNCLEAN_DATA_DIR.mkdir(parents=True, exist_ok=True)
@@ -81,6 +108,10 @@ def save_daily_csvs(df, date):
     save_csv(df, f"daily_{date.isoformat()}.csv")
 
 
+def save_date_range(df, start_date, end_date):
+    save_csv(df, f"range_{start_date.isoformat()}_to_{end_date.isoformat()}.csv")
+
+
 def historic_save(df, locationName, year):
     name = locationName.replace(" ", "")
     save_csv(df, f"{name}_{year}.csv")
@@ -90,7 +121,8 @@ def main():
     options = {
         1: "Daily Fetch",
         2: "Monthly Fetch",
-        3: "Historical Fetch"
+        3: "Historical Fetch",
+        4: "Date Range Fetch"
     }
 
     for key, val in options.items():
@@ -116,6 +148,12 @@ def main():
                 year = selectYear()
                 historic_df = fetch_historic_data(locationTag, year)
                 historic_save(historic_df, locationName, year)
+                break
+            elif selection == 4:
+                print("Running the date range fetch for all locations, please enter the dates")
+                start_date, end_date = selectDateRange()
+                range_df = fetch_date_range(start_date, end_date)
+                save_date_range(range_df, start_date, end_date)
                 break
             else:
                 print("please enter a valid selection")
