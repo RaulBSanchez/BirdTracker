@@ -47,14 +47,12 @@ def fetch_historic_data(location_tag, year):
 
             if response.status_code == 200:
                 data = response.json()
-
                 if data:
                     day_df = pd.DataFrame(data)
                     df = pd.concat([df, day_df], ignore_index=True)
-
             else:
                 print(f"Failed for {historic_date}")
-
+            
             time.sleep(1)
 
         print(f"Done with {month_name}, {year}")
