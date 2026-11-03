@@ -93,3 +93,13 @@ def get_life_list(limit: int = Query(10, ge=1, le=100)):
     ORDER BY bc.card_number, bcm.sex;
     """
     return run_query(query, {"limit": limit})
+
+@app.get("/YesterdaysObservations/")
+def get_life_list(limit: int = Query(10, ge=1, le=100)):
+    query = """
+    SELECT DISTINCT common_name, location_name, observation_date
+    FROM public.phillybirds
+    WHERE observation_date = CURRENT_DATE - 1
+    ORDER BY common_name;
+    """
+    return run_query(query, {"limit": limit})
